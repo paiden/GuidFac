@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type Rectangle}" />
+    <!-- Dummy Style see http://stackoverflow.com/questions/1229395/trouble-referencing-a-resource-dictionary-that-contains-a-merged-dictionary for more info why this is needed-->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.Label.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.Expander.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.ListBoxItem.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.ListViewItem.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.LinkButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.TextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.ContextMenu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TeamNotifications;component/Resources/Styles.ImageButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>   

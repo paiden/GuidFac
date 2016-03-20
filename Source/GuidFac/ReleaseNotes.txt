@@ -1,0 +1,9 @@
+﻿1.2.0 [2014-11-20]:
++) Auto copy value of inserted GUID to clipboard (can be enabled/disabled). 
+
+1.1.0 [2014-10-19]:
++) New Upper/Lower/Mixed case modes added.
++) More hot keys added, H,L,Left,Right switch modes; J,K,Up,Down change selection, Shift inverts mode temporary.
+
+1.0.0 [2014-07-20]:
+Initial release

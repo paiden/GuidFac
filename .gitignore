@@ -1,0 +1,10 @@
+# File Types everywhere
+*.cache
+*.dll
+*.suo
+*.vspscc
+*.xml
+
+# Folders everywhere
+bin/
+obj/
