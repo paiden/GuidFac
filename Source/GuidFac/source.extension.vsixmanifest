@@ -1,23 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="06b6528b-1a8f-43fd-b717-411ea0dbb3de" Version="1.2.0" Language="en-US" Publisher="PrivateDeveloperInc" />
-    <DisplayName>GuidFac</DisplayName>
-    <Description xml:space="preserve">Helps you to define GUIDs in your code/text files.</Description>
-    <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/ab7310e4-8db1-445b-8fc6-bba91b7a2d87</MoreInfo>
-    <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
-    <Icon>Resources\Icon_32x32.png</Icon>
-    <PreviewImage>PreviewScreen.png</PreviewImage>
-    <Tags>guid, generator, code, editor, intellisense, completion,</Tags>
-  </Metadata>
-  <Installation InstalledByMsi="false">
-    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0,]" />
-  </Installation>
-  <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0]" />
-  </Dependencies>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+    <Metadata>
+        <Identity Id="06b6528b-1a8f-43fd-b717-411ea0dbb3de" Version="1.3.0" Language="en-US" Publisher="PrivateDeveloperInc" />
+        <DisplayName>GuidFac</DisplayName>
+        <Description xml:space="preserve">Helps you to define GUIDs in your code/text files.</Description>
+        <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/ab7310e4-8db1-445b-8fc6-bba91b7a2d87</MoreInfo>
+        <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
+        <Icon>Resources\Icon_32x32.png</Icon>
+        <PreviewImage>PreviewScreen.png</PreviewImage>
+        <Tags>guid, generator, code, editor, intellisense, completion,</Tags>
+    </Metadata>
+    <Installation InstalledByMsi="false">
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0,]" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+        <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0]" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
 </PackageManifest>

@@ -1,4 +1,7 @@
-﻿1.2.0 [2014-11-20]:
+﻿1.3.0 [2016-12-01]:
++) VS2017 support
+
+1.2.0 [2014-11-20]:
 +) Auto copy value of inserted GUID to clipboard (can be enabled/disabled). 
 
 1.1.0 [2014-10-19]:

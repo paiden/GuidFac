@@ -8,3 +8,6 @@
 # Folders everywhere
 bin/
 obj/
+
+# Files
+/Source/GuidFac/GuidFac.csproj.user
