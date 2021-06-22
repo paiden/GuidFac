@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="06b6528b-1a8f-43fd-b717-411ea0dbb3de" Version="1.4.0" Language="en-US" Publisher="Paiden36" />
-        <DisplayName>GuidFac</DisplayName>
+        <Identity Id="caf84df6-9ce1-41da-8657-91c6e3b516ec" Version="2.0.0" Language="en-US" Publisher="Paiden36" />
+        <DisplayName>GuidFac64</DisplayName>
         <Description xml:space="preserve">Helps you to define GUIDs in your code/text files.</Description>
         <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/ab7310e4-8db1-445b-8fc6-bba91b7a2d87</MoreInfo>
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
@@ -11,7 +11,9 @@
         <Tags>guid, generator, code, editor, intellisense, completion,</Tags>
     </Metadata>
     <Installation InstalledByMsi="false">
-        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,17.0)" />
+      <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0,)">
+        <ProductArchitecture>amd64</ProductArchitecture>
+      </InstallationTarget>
     </Installation>
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
