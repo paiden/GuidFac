@@ -1,6 +1,8 @@
 ﻿namespace PrivateDeveloperInc.GuidFac;
 
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Platform.WindowManagement;
+using Microsoft.VisualStudio.PlatformUI.Shell;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
@@ -117,15 +119,21 @@ public sealed class GuidFacPackage : AsyncPackage
                 int toReplace = Math.Max(0, endCol - startCol);
 
                 var pos = CalculateCaretPosition(wpfView);
-                var window = new GuidFacWindow(pos, wpfView as UIElement, Config);
-                var result = window.ShowDialog();
+
+                var textViewEx = tv as IVsTextViewEx;
+                textViewEx.GetWindowFrame(out object frameObject);
+                var frame = frameObject as WindowFrame;
+                var parentWindow = UtilityMethods.WindowFromView(frame.RootView);
+
+                var dialogWindow = new GuidFacWindow(pos, parentWindow, Config);
+                var result = dialogWindow.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
                     int line, col;
                     tv.GetCaretPos(out line, out col);
-                    tv.ReplaceTextOnLine(line, startCol, toReplace, window.InsertGuid, window.InsertGuid.Length);
+                    tv.ReplaceTextOnLine(line, startCol, toReplace, dialogWindow.InsertGuid, dialogWindow.InsertGuid.Length);
 
-                    tv.SetCaretPos(line, startCol + window.InsertGuid.Length); //otherwise caret jumps sometimes don't know why
+                    tv.SetCaretPos(line, startCol + dialogWindow.InsertGuid.Length); //otherwise caret jumps sometimes don't know why
                 }
             }
         }

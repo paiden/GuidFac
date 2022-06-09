@@ -72,6 +72,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.VisualStudio.Interop">
+      <Version>17.2.32505.113</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.2.32505.173" ExcludeAssets="runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -80,6 +83,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <Reference Include="Microsoft.VisualStudio.Diagnostics.Assert">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.Diagnostics.Assert.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Platform.WindowManagement">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\Microsoft.VisualStudio.Platform.WindowManagement.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.ViewManager">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\Microsoft.VisualStudio.Shell.ViewManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

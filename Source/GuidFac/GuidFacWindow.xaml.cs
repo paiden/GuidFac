@@ -6,7 +6,6 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 
 using FScreen = System.Windows.Forms.Screen;
 /// <summary>
@@ -21,19 +20,18 @@ public partial class GuidFacWindow : DialogWindow
     private Guid currentGuid;
     private readonly RadioButtonSelector buttonSelector;
 
-    public GuidFacWindow(Point pos, UIElement host, GuidFacConfig config)
+    public GuidFacWindow(Point pos, Window parentWindow, GuidFacConfig config)
     {
         InitializeComponent();
 
         this.config = config;
 
-        var window = FindWindow(host);
-        this.Owner = window;
-        var desiredScreenLocation = host.PointToScreen(pos);
-        var windowOrigin = host.PointToScreen(new Point(0, 0));
+        this.Owner = parentWindow;
+        var desiredScreenLocation = parentWindow.PointToScreen(pos);
+        var windowOrigin = parentWindow.PointToScreen(new Point(0, 0));
         var lowerRightLocation = new Point(pos.X + this.Width, pos.Y + this.Height);
-        var lowerRightScreenLocation = host.PointToScreen(lowerRightLocation) - windowOrigin;
-        var screen = FScreen.FromHandle(new WindowInteropHelper(window).Handle);
+        var lowerRightScreenLocation = parentWindow.PointToScreen(lowerRightLocation) - windowOrigin;
+        var screen = FScreen.FromHandle(new WindowInteropHelper(parentWindow).Handle);
         var area = screen.WorkingArea;
 
         if (lowerRightScreenLocation.Y + MakeNiceMargin > area.Height)
@@ -57,40 +55,6 @@ public partial class GuidFacWindow : DialogWindow
         var gfm = this.GetGuidFormatFromButtonStates();
         var selected = ((int)gfm) - 1;
         this.buttonSelector = new RadioButtonSelector(selected, this.radioButtonLower, this.radioButtonUpper, this.radioButtonBoth);
-    }
-
-    private static DependencyObject FindChild(DependencyObject parent, string childName)
-    {
-        if (parent == null)
-        {
-            return null;
-        }
-
-        int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-
-        for (int i = 0; i < childrenCount; i++)
-        {
-            DependencyObject child = VisualTreeHelper.GetChild(parent, i);
-
-            if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
-            {
-                return frameworkElement;
-            }
-        }
-
-        for (int i = 0; i < childrenCount; i++)
-        {
-            DependencyObject child = VisualTreeHelper.GetChild(parent, i);
-
-            child = FindChild(child, childName);
-
-            if (child != null)
-            {
-                return child;
-            }
-        }
-
-        return null;
     }
 
     private void OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -143,17 +107,6 @@ public partial class GuidFacWindow : DialogWindow
         e.Handled = true;
     }
 
-    private Window FindWindow(UIElement element)
-    {
-        var parent = VisualTreeHelper.GetParent(element);
-        while (parent != null && !(parent is Window))
-        {
-            parent = VisualTreeHelper.GetParent(parent);
-        }
-
-        return (Window)parent;
-    }
-
     private void Update(bool keepIndex = true)
     {
         var gfm = this.GetGuidFormatFromButtonStates();
@@ -204,8 +157,10 @@ public partial class GuidFacWindow : DialogWindow
     private GuidFormat GetGuidFormatFromButtonStates()
     {
         GuidFormat gfm = GuidFormat.Both;
-        if (this.radioButtonLower.IsChecked.HasValue && this.radioButtonLower.IsChecked.Value) { gfm = GuidFormat.Lower; }
-        else if (this.radioButtonUpper.IsChecked.HasValue && this.radioButtonUpper.IsChecked.Value) { gfm = GuidFormat.Upper; }
+        if (this.radioButtonLower.IsChecked.HasValue && this.radioButtonLower.IsChecked.Value)
+        { gfm = GuidFormat.Lower; }
+        else if (this.radioButtonUpper.IsChecked.HasValue && this.radioButtonUpper.IsChecked.Value)
+        { gfm = GuidFormat.Upper; }
 
         return gfm;
     }
