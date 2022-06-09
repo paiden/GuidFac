@@ -1,126 +1,122 @@
-﻿using System;
+﻿namespace PrivateDeveloperInc.GuidFac;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows;
 
-namespace PrivateDeveloperInc.GuidFac
+[Flags]
+public enum GuidFormat
 {
-    [Flags]
-    public enum GuidFormat
+    Lower = 0x01,
+    Upper = 0x02,
+    Both = Lower | Upper
+}
+
+public sealed class GuidFacConfig
+{
+    private const string GuidFacModeKey = "GuidFaceMode";
+    private const string SetClipboardKey = "SetClipboard";
+
+    private readonly string path;
+
+    private Dictionary<string, object> settings = new Dictionary<string, object>();
+
+    public event EventHandler ConfigChanged = delegate { };
+
+    public GuidFacConfig(string configPath)
     {
-        Lower = 0x01,
-        Upper = 0x02,
-        Both = Lower | Upper
+        this.path = configPath;
+        this.settings[GuidFacModeKey] = GuidFormat.Both;
+        this.settings[SetClipboardKey] = true;
     }
 
-    public sealed class GuidFacConfig
+    public GuidFormat GuidFacMode
     {
-        private const string GuidFacModeKey = "GuidFaceMode";
-        private const string SetClipboardKey = "SetClipboard";
-
-        private readonly string path;
-
-        private Dictionary<string, object> settings = new Dictionary<string, object>();
-
-        public event EventHandler ConfigChanged = delegate { };
-
-        public GuidFacConfig(string configPath)
+        get => (GuidFormat)this.settings[GuidFacModeKey];
+        set
         {
-            this.path = configPath;
-            this.settings[GuidFacModeKey] = GuidFormat.Both;
-            this.settings[SetClipboardKey] = true;
+            this.settings[GuidFacModeKey] = value;
+            this.ConfigChanged(this, EventArgs.Empty);
         }
+    }
 
-        public GuidFormat GuidFacMode
+    public bool SetClipboard
+    {
+        get => (bool)this.settings[SetClipboardKey];
+        set
         {
-            get
-            {
-                return (GuidFormat)this.settings[GuidFacModeKey];
-            }
-            set
-            {
-                this.settings[GuidFacModeKey] = value;
-                this.ConfigChanged(this, EventArgs.Empty);
-            }
+            this.settings[SetClipboardKey] = value;
+            this.ConfigChanged(this, EventArgs.Empty);
         }
+    }
 
-        public bool SetClipboard
+    public void Write()
+    {
+        try
         {
-            get { return (bool)this.settings[SetClipboardKey]; }
-            set
+            var dir = Path.GetDirectoryName(this.path);
+            if (!Directory.Exists(dir))
             {
-                this.settings[SetClipboardKey] = value;
-                this.ConfigChanged(this, EventArgs.Empty);
+                Directory.CreateDirectory(dir);
+            }
+
+            using (var writer = new StreamWriter(path, append: false))
+            {
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0}={1}", GuidFacModeKey, this.GuidFacMode));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0}={1}", SetClipboardKey, this.SetClipboard));
             }
         }
-
-        public void Write()
+        catch (Exception exc)
         {
-            try
+            MessageBox.Show(Application.Current.MainWindow, exc.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public void Read()
+    {
+        try
+        {
+            if (File.Exists(this.path))
             {
-                var dir = Path.GetDirectoryName(this.path);
-                if (!Directory.Exists(dir))
+                using (var reader = new StreamReader(this.path))
                 {
-                    Directory.CreateDirectory(dir);
-                }
-
-                using (var writer = new StreamWriter(path, append: false))
-                {
-                    writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0}={1}", GuidFacModeKey, this.GuidFacMode));
-                    writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0}={1}", SetClipboardKey, this.SetClipboard));
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(Application.Current.MainWindow, exc.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public void Read()
-        {
-            try
-            {
-                if (File.Exists(this.path))
-                {
-                    using (var reader = new StreamReader(this.path))
+                    string l;
+                    while ((l = reader.ReadLine()) != null)
                     {
-                        string l;
-                        while ((l = reader.ReadLine()) != null)
+                        var parts = l.Split(new char[] { '=' });
+                        if (parts.Length == 2)
                         {
-                            var parts = l.Split(new char[] { '=' });
-                            if (parts.Length == 2)
-                            {
-                                var key = parts[0].Trim();
-                                var value = parts[1].Trim();
+                            var key = parts[0].Trim();
+                            var value = parts[1].Trim();
 
-                                switch (key)
-                                {
-                                    case GuidFacModeKey: GuidFacMode = GuidFormatFromString(value); break;
-                                    case SetClipboardKey: SetClipboard = bool.Parse(value); break;
-                                }
+                            switch (key)
+                            {
+                                case GuidFacModeKey: GuidFacMode = GuidFormatFromString(value); break;
+                                case SetClipboardKey: SetClipboard = bool.Parse(value); break;
                             }
                         }
                     }
                 }
             }
-            catch (Exception exc)
-            {
-                MessageBox.Show(Application.Current.MainWindow, exc.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
-
-        private static GuidFormat GuidFormatFromString(string s)
+        catch (Exception exc)
         {
-            GuidFormat fmt;
-            if (Enum.TryParse<GuidFormat>(s, out fmt))
-            {
-                return fmt;
-            }
-            else
-            {
-                return GuidFormat.Both;
-            }
+            MessageBox.Show(Application.Current.MainWindow, exc.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private static GuidFormat GuidFormatFromString(string s)
+    {
+        GuidFormat fmt;
+        if (Enum.TryParse<GuidFormat>(s, out fmt))
+        {
+            return fmt;
+        }
+        else
+        {
+            return GuidFormat.Both;
         }
     }
 }

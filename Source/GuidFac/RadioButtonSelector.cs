@@ -1,38 +1,37 @@
-﻿using System.Windows.Controls;
+﻿namespace PrivateDeveloperInc.GuidFac;
 
-namespace PrivateDeveloperInc.GuidFac
+using System.Windows.Controls;
+
+internal class RadioButtonSelector
 {
-    internal class RadioButtonSelector
+    private readonly RadioButton[] buttons;
+    private int selected;
+
+    public RadioButtonSelector(int selected, params RadioButton[] buttons)
     {
-        private readonly RadioButton[] buttons;
-        private int selected;
+        this.selected = selected;
+        this.buttons = buttons;
+    }
 
-        public RadioButtonSelector(int selected, params RadioButton[] buttons)
+    public void Next()
+    {
+        this.selected++;
+        if (this.selected >= this.buttons.Length)
         {
-            this.selected = selected;
-            this.buttons = buttons;
+            this.selected = 0;
         }
 
-        public void Next()
-        {
-            this.selected++;
-            if (this.selected >= this.buttons.Length)
-            {
-                this.selected = 0;
-            }
+        this.buttons[this.selected].IsChecked = true;
+    }
 
-            this.buttons[this.selected].IsChecked = true;
+    public void Previous()
+    {
+        this.selected--;
+        if (this.selected < 0)
+        {
+            this.selected = this.buttons.Length - 1;
         }
 
-        public void Previous()
-        {
-            this.selected--;
-            if (this.selected < 0)
-            {
-                this.selected = this.buttons.Length - 1;
-            }
-
-            this.buttons[this.selected].IsChecked = true;
-        }
+        this.buttons[this.selected].IsChecked = true;
     }
 }
