@@ -113,7 +113,7 @@ public partial class GuidFacWindow : DialogWindow
     private Window FindWindow(UIElement element)
     {
         var parent = VisualTreeHelper.GetParent(element);
-        while (parent != null && !(parent is Window))
+        while (parent != null && parent is not Window)
         {
             parent = VisualTreeHelper.GetParent(parent);
         }
@@ -171,8 +171,8 @@ public partial class GuidFacWindow : DialogWindow
     private GuidFormat GetGuidFormatFromButtonStates()
     {
         GuidFormat gfm = GuidFormat.Both;
-        if (this.radioButtonLower.IsChecked.HasValue && this.radioButtonLower.IsChecked.Value) { gfm = GuidFormat.Lower; }
-        else if (this.radioButtonUpper.IsChecked.HasValue && this.radioButtonUpper.IsChecked.Value) { gfm = GuidFormat.Upper; }
+        if (this.radioButtonLower.IsChecked == true) { gfm = GuidFormat.Lower; }
+        else if (this.radioButtonUpper.IsChecked == true) { gfm = GuidFormat.Upper; }
 
         return gfm;
     }

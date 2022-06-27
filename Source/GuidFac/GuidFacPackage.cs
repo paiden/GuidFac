@@ -16,14 +16,15 @@ using System.Threading;
 using System.Windows;
 
 /// <summary>
-/// This is the class that implements the package exposed by this assembly.
-///
+/// <para>This is the class that implements the package exposed by this assembly.</para>
+/// <para>
 /// The minimum requirement for a class to be considered a valid package for Visual Studio
 /// is to implement the IVsPackage interface and register itself with the shell.
 /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
 /// to do it: it derives from the Package class that provides the implementation of the
 /// IVsPackage interface and uses the registration attributes defined in the framework to
 /// register itself and its components with the shell.
+/// </para>
 /// </summary>
 // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
 // a package.
@@ -61,7 +62,6 @@ public sealed class GuidFacPackage : AsyncPackage
         {
             MessageBox.Show(Application.Current.MainWindow, exc.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
     }
 
     /////////////////////////////////////////////////////////////////////////////
@@ -78,8 +78,7 @@ public sealed class GuidFacPackage : AsyncPackage
         base.Initialize();
 
         // Add our command handlers for menu (commands must exist in the .vsct file)
-        OleMenuCommandService mcs = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-        if (null != mcs)
+        if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService mcs)
         {
             // Create the command for the menu item.
             CommandID menuCommandID = new CommandID(GuidList.guidGuidFacCmdSet, (int)PkgCmdIDList.cmdidInsertGuid);
@@ -102,14 +101,12 @@ public sealed class GuidFacPackage : AsyncPackage
 
         if (tm == null) return;
 
-        IVsTextView tv = null;
-        tm.GetActiveView(1, null, out tv);
+        tm.GetActiveView(1, null, out IVsTextView tv);
         var wpfView = GetWpfTextView(tv);
 
         if (tv == null) return;
 
-        int anchorLine, anchorCol, endLine, endCol;
-        tv.GetSelection(out anchorLine, out anchorCol, out endLine, out endCol);
+        tv.GetSelection(out int anchorLine, out int anchorCol, out int endLine, out int endCol);
 
         if (anchorLine != endLine) return;
 
@@ -120,10 +117,9 @@ public sealed class GuidFacPackage : AsyncPackage
         var pos = CalculateCaretPosition(wpfView);
         var window = new GuidFacWindow(pos, wpfView as UIElement, Config);
         var result = window.ShowDialog();
-        if (result.HasValue && result.Value)
+        if (result == true)
         {
-            int line, col;
-            tv.GetCaretPos(out line, out col);
+            tv.GetCaretPos(out int line, out int col);
             tv.ReplaceTextOnLine(line, startCol, toReplace, window.InsertGuid, window.InsertGuid.Length);
 
             tv.SetCaretPos(line, startCol + window.InsertGuid.Length); //otherwise caret jumps sometimes don't know why
@@ -132,7 +128,7 @@ public sealed class GuidFacPackage : AsyncPackage
 
     private Point CalculateCaretPosition(IWpfTextView activeWpfTextView)
     {
-        var textViewOrigin = (activeWpfTextView as UIElement).PointToScreen(new Point(0, 0));
+        var textViewOrigin = (activeWpfTextView as UIElement)!.PointToScreen(new Point(0, 0));
 
         var caretPos = activeWpfTextView.Caret.Position.BufferPosition;
         var charBounds = activeWpfTextView
@@ -150,14 +146,12 @@ public sealed class GuidFacPackage : AsyncPackage
     private IWpfTextView GetWpfTextView(IVsTextView vTextView)
     {
         IWpfTextView view = null;
-        IVsUserData userData = vTextView as IVsUserData;
 
-        if (null != userData)
+        if (vTextView is IVsUserData userData)
         {
             IWpfTextViewHost viewHost;
-            object holder;
             Guid guidViewHost = DefGuidList.guidIWpfTextViewHost;
-            userData.GetData(ref guidViewHost, out holder);
+            userData.GetData(ref guidViewHost, out object holder);
             viewHost = (IWpfTextViewHost)holder;
             view = viewHost.TextView;
         }
