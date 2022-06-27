@@ -8,138 +8,138 @@
                  PreviewKeyDown="OnPreviewKeyDown"
                  KeyUp="HandleDialogWindowKeyUp"
                  Title="GuidFacWindow" Height="180" Width="600" WindowStyle="None" BorderThickness="1" >
-    <Border BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}" BorderThickness="1">
-        <Grid Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
-            <Grid.Resources>
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/GuidFac;component/Resources/Styles.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/GuidFac;component/Resources/Styles.ListboxItem.NoHover.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                    <Style x:Key="myRadioButtonStyle" TargetType="{x:Type RadioButton}">
-                        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-                        <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
-                        <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsChecked" Value="true">
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.HighlightKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="true">
-                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style x:Key="styleMyToggleButton" TargetType="{x:Type ToggleButton}">
-                        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
-                        <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
-                        <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsChecked" Value="true">
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.HighlightKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="true">
-                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
-                                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ResourceDictionary>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="20" />
-            </Grid.RowDefinitions>
-            <ListView x:Name="listViewFormats" Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+  <Border BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}" BorderThickness="1">
+    <Grid Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
+      <Grid.Resources>
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/GuidFac;component/Resources/Styles.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/GuidFac;component/Resources/Styles.ListboxItem.NoHover.xaml" />
+          </ResourceDictionary.MergedDictionaries>
+          <Style x:Key="myRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                  <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                  </Border>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="true">
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.HighlightKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="true">
+                      <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                      <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                      <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                      <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
+          </Style>
+          <Style x:Key="styleMyToggleButton" TargetType="{x:Type ToggleButton}">
+            <!--<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>-->
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                  <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                  </Border>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="true">
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.HighlightKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="true">
+                      <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}"/>
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                      <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                      <Setter Property="Background" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                      <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+                      <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
+          </Style>
+        </ResourceDictionary>
+      </Grid.Resources>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="20" />
+      </Grid.RowDefinitions>
+      <ListView x:Name="listViewFormats" Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
                       MouseDoubleClick="OnListViewFormatsMouseDoubleClick"
                       Margin="2" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-            </ListView>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="Press 'Space' to generate new GUID" FontSize="11" FontStyle="Italic" Margin="2,4,2,-2" Padding="0"
+      </ListView>
+      <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Content="Press 'Space' to generate new GUID" FontSize="11" FontStyle="Italic" Margin="2,4,2,-2" Padding="0"
                    Foreground="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}"/>
-                <StackPanel Orientation="Horizontal"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" >
-                    <ToggleButton Style="{StaticResource styleMyToggleButton}" Width="18" Height="18" Padding="0"
+        <StackPanel Orientation="Horizontal"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" >
+          <ToggleButton Style="{StaticResource styleMyToggleButton}" Width="18" Height="18" Padding="0"
                                   Name="toggleButtonSetClipboard" ToolTip="Auto set clipboard to GUID value when GUID gets inserted (Hotkey: C)">
-                        <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="Layer_1_5" Width="16" Height="16" Canvas.Left="0" Canvas.Top="0">
-                            <Rectangle Width="11" Height="13" Canvas.Left="2.5" Canvas.Top="1.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Fill="#00FFFFFF"/>
-                            <Path Width="5" Height="1" Canvas.Left="4.5" Canvas.Top="3.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,4L 9,4"/>
-                            <Path Width="7" Height="1" Canvas.Left="4.5" Canvas.Top="5.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,6L 11,6"/>
-                            <Path Width="4" Height="1" Canvas.Left="4.5" Canvas.Top="7.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,8L 8,8"/>
-                            <Path Width="7" Height="1" Canvas.Left="4.5" Canvas.Top="9.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,10L 11,10"/>
-                            <Path Width="7" Height="1" Canvas.Left="4.5" Canvas.Top="11.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,12L 11,12"/>
-                        </Canvas>
-                    </ToggleButton>
-                    <Rectangle VerticalAlignment="Stretch" Width="1" Margin="4,0,0,0" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}" />
+            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="Layer_1_5" Width="16" Height="16" Canvas.Left="0" Canvas.Top="0">
+              <Rectangle Width="11" Height="13" Canvas.Left="2.5" Canvas.Top="1.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Fill="#00FFFFFF"/>
+              <Path Width="5" Height="1" Canvas.Left="4.5" Canvas.Top="3.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,4L 9,4"/>
+              <Path Width="7" Height="1" Canvas.Left="4.5" Canvas.Top="5.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,6L 11,6"/>
+              <Path Width="4" Height="1" Canvas.Left="4.5" Canvas.Top="7.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,8L 8,8"/>
+              <Path Width="7" Height="1" Canvas.Left="4.5" Canvas.Top="9.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,10L 11,10"/>
+              <Path Width="7" Height="1" Canvas.Left="4.5" Canvas.Top="11.5" Stretch="Fill" StrokeLineJoin="Round" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.AutoHideTabTextKey}}" Data="F1 M 5,12L 11,12"/>
+            </Canvas>
+          </ToggleButton>
+          <Rectangle VerticalAlignment="Stretch" Width="1" Margin="4,0,0,0" Stroke="{DynamicResource {x:Static vsshell:VsBrushes.ActiveBorderKey}}" />
 
-                    <RadioButton x:Name="radioButtonLower"
+          <RadioButton x:Name="radioButtonLower"
                                  GroupName="mode"
                                  Style="{StaticResource myRadioButtonStyle}"
                                  Checked="HandleRadioButtonChecked"
                                  Content="a" Width="18" Height="18" Margin="5,0,5,0"/>
-                    <RadioButton Content="A" Width="18" Height="18" Margin="5,0,5,0"
+          <RadioButton Content="A" Width="18" Height="18" Margin="5,0,5,0"
                                  x:Name="radioButtonUpper"
                                  GroupName="mode"
                                  Checked="HandleRadioButtonChecked"
                                  Style="{StaticResource myRadioButtonStyle}" />
-                    <RadioButton Content="aA" Width="18" Height="18" Margin="5,0,5,0"
+          <RadioButton Content="aA" Width="18" Height="18" Margin="5,0,5,0"
                                  x:Name="radioButtonBoth"
                                  Checked="HandleRadioButtonChecked"
                                  GroupName="mode"
                                  Style="{StaticResource myRadioButtonStyle}" />
 
-                </StackPanel>
-            </Grid>
+        </StackPanel>
+      </Grid>
 
-        </Grid>
-    </Border>
+    </Grid>
+  </Border>
 </ui:DialogWindow>
