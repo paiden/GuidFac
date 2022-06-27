@@ -21,7 +21,7 @@ public sealed class GuidFacConfig
 
     private readonly string path;
 
-    private Dictionary<string, object> settings = new Dictionary<string, object>();
+    private readonly Dictionary<string, object> settings = new Dictionary<string, object>();
 
     public event EventHandler ConfigChanged = delegate { };
 
