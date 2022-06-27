@@ -6,10 +6,8 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 
 using FScreen = System.Windows.Forms.Screen;
-
 /// <summary>
 /// Interaction logic for GuidFacWindow.xaml
 /// </summary>
@@ -22,19 +20,18 @@ public partial class GuidFacWindow : DialogWindow
     private Guid currentGuid;
     private readonly RadioButtonSelector buttonSelector;
 
-    public GuidFacWindow(Point pos, UIElement host, GuidFacConfig config)
+    public GuidFacWindow(Point pos, Window parentWindow, GuidFacConfig config)
     {
         InitializeComponent();
 
         this.config = config;
 
-        var window = FindWindow(host);
-        this.Owner = window;
-        var desiredScreenLocation = host.PointToScreen(pos);
-        var windowOrigin = host.PointToScreen(new Point(0, 0));
+        this.Owner = parentWindow;
+        var desiredScreenLocation = parentWindow.PointToScreen(pos);
+        var windowOrigin = parentWindow.PointToScreen(new Point(0, 0));
         var lowerRightLocation = new Point(pos.X + this.Width, pos.Y + this.Height);
-        var lowerRightScreenLocation = host.PointToScreen(lowerRightLocation) - windowOrigin;
-        var screen = FScreen.FromHandle(new WindowInteropHelper(window).Handle);
+        var lowerRightScreenLocation = parentWindow.PointToScreen(lowerRightLocation) - windowOrigin;
+        var screen = FScreen.FromHandle(new WindowInteropHelper(parentWindow).Handle);
         var area = screen.WorkingArea;
 
         if (lowerRightScreenLocation.Y + MakeNiceMargin > area.Height)
@@ -110,17 +107,6 @@ public partial class GuidFacWindow : DialogWindow
         e.Handled = true;
     }
 
-    private Window FindWindow(UIElement element)
-    {
-        var parent = VisualTreeHelper.GetParent(element);
-        while (parent != null && parent is not Window)
-        {
-            parent = VisualTreeHelper.GetParent(parent);
-        }
-
-        return (Window)parent;
-    }
-
     private void Update(bool keepIndex = true)
     {
         var gfm = this.GetGuidFormatFromButtonStates();
@@ -170,11 +156,12 @@ public partial class GuidFacWindow : DialogWindow
 
     private GuidFormat GetGuidFormatFromButtonStates()
     {
-        GuidFormat gfm = GuidFormat.Both;
-        if (this.radioButtonLower.IsChecked == true) { gfm = GuidFormat.Lower; }
-        else if (this.radioButtonUpper.IsChecked == true) { gfm = GuidFormat.Upper; }
-
-        return gfm;
+        if (this.radioButtonLower.IsChecked == true)
+        { return GuidFormat.Lower; }
+        else if (this.radioButtonUpper.IsChecked == true)
+        { return GuidFormat.Upper; }
+        else
+        { return GuidFormat.Both; }
     }
 
     private void OnListViewFormatsMouseDoubleClick(object sender, MouseButtonEventArgs e)

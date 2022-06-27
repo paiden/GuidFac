@@ -1,6 +1,8 @@
 ﻿namespace PrivateDeveloperInc.GuidFac;
 
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Platform.WindowManagement;
+using Microsoft.VisualStudio.PlatformUI.Shell;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
@@ -98,31 +100,38 @@ public sealed class GuidFacPackage : AsyncPackage
     private void MenuItemCallback(object sender, EventArgs e)
     {
         IVsTextManager tm = (IVsTextManager)GetService(typeof(SVsTextManager));
-
-        if (tm == null) return;
-
-        tm.GetActiveView(1, null, out IVsTextView tv);
-        var wpfView = GetWpfTextView(tv);
-
-        if (tv == null) return;
-
-        tv.GetSelection(out int anchorLine, out int anchorCol, out int endLine, out int endCol);
-
-        if (anchorLine != endLine) return;
-
-        int startCol = Math.Min(anchorCol, endCol);
-        endCol = Math.Max(anchorCol, endCol);
-        int toReplace = Math.Max(0, endCol - startCol);
-
-        var pos = CalculateCaretPosition(wpfView);
-        var window = new GuidFacWindow(pos, wpfView as UIElement, Config);
-        var result = window.ShowDialog();
-        if (result == true)
+        if (tm != null)
         {
-            tv.GetCaretPos(out int line, out int col);
-            tv.ReplaceTextOnLine(line, startCol, toReplace, window.InsertGuid, window.InsertGuid.Length);
+            tm.GetActiveView(1, null, out IVsTextView tv);
+            var wpfView = GetWpfTextView(tv);
 
-            tv.SetCaretPos(line, startCol + window.InsertGuid.Length); //otherwise caret jumps sometimes don't know why
+            if (tv != null)
+            {
+                tv.GetSelection(out int anchorLine, out int anchorCol, out int endLine, out int endCol);
+
+                if (anchorLine != endLine) return;
+
+                int startCol = Math.Min(anchorCol, endCol);
+                endCol = Math.Max(anchorCol, endCol);
+                int toReplace = Math.Max(0, endCol - startCol);
+
+                var pos = CalculateCaretPosition(wpfView);
+
+                var textViewEx = tv as IVsTextViewEx;
+                textViewEx.GetWindowFrame(out object frameObject);
+                var frame = frameObject as WindowFrame;
+                var parentWindow = UtilityMethods.WindowFromView(frame.RootView);
+
+                var dialogWindow = new GuidFacWindow(pos, parentWindow, Config);
+                var result = dialogWindow.ShowDialog();
+                if (result == true)
+                {
+                    tv.GetCaretPos(out int line, out int col);
+                    tv.ReplaceTextOnLine(line, startCol, toReplace, dialogWindow.InsertGuid, dialogWindow.InsertGuid.Length);
+
+                    tv.SetCaretPos(line, startCol + dialogWindow.InsertGuid.Length); //otherwise caret jumps sometimes don't know why
+                }
+            }
         }
     }
 

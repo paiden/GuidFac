@@ -72,6 +72,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.VisualStudio.Interop" Version="17.2.32505.113" />
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.2.32505.173" ExcludeAssets="runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -80,6 +81,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <Reference Include="Microsoft.VisualStudio.Diagnostics.Assert">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.Diagnostics.Assert.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Platform.WindowManagement">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\Microsoft.VisualStudio.Platform.WindowManagement.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.ViewManager">
+      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\Microsoft.VisualStudio.Shell.ViewManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -229,7 +242,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
