@@ -78,7 +78,7 @@
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="guidGuidFacCmdSet" id="cmdidInsertGuid" editor="guidVSStd97" key1="E" mod1="Control" key2="G"/>
+    <KeyBinding guid="guidGuidFacCmdSet" id="cmdidInsertGuid" editor="guidVSStd97" key1="E" mod1="Control" key2="G" mod2="Control" />
   </KeyBindings>
 
   <Symbols>
