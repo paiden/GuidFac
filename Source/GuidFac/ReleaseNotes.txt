@@ -1,5 +1,12 @@
-﻿2.0.0 [20210-06-22]: 
- 
+﻿2.1.0 [2022-08-03];
+- Rebind shortcuts from Ctrl+E, G to Ctrl+E, Ctrl+G
+- Fix window layout issues
+- Fix exception when opening GuidFac in SQL editor
+
+Thanks to https://github.com/xperiandri for the contributions!
+
+2.0.0 [20210-06-22]:
+
 - Add VS2022 (64bit) support
 
 1.4.0 [2019-05-07]:
@@ -11,7 +18,7 @@
 
 1.2.0 [2014-11-20]:
 
-- Auto copy value of inserted GUID to clipboard (can be enabled/disabled). 
+- Auto copy value of inserted GUID to clipboard (can be enabled/disabled).
 
 1.1.0 [2014-10-19]:
 
