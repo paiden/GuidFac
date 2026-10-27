@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".mcp.json" />
+    <File Path="Directory.Build.targets" />
+  </Folder>
+  <Project Path="Source/GuidFac/GuidFac.csproj" Id="f118390a-df8a-4625-ae3d-d90ed83f7f1e" />
+</Solution>
