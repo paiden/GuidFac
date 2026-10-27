@@ -1,0 +1,18 @@
+<!--
+Central package management: the versions of all packages are set here, the project file names the packages only.
+See https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management
+-->
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.VisualStudio.Interop" Version="17.2.32505.113" />
+    <PackageVersion Include="Microsoft.VisualStudio.SDK" Version="17.2.32505.173" />
+    <PackageVersion Include="Microsoft.VisualStudio.Shell.15.0" Version="17.2.32505.113" />
+    <PackageVersion Include="Microsoft.VSSDK.BuildTools" Version="18.5.40034" />
+  </ItemGroup>
+
+</Project>
