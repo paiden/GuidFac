@@ -13,3 +13,6 @@ packages/
 
 # Files
 /Source/GuidFac/GuidFac.csproj.user
+
+# Local junction to .github/skills, created by Directory.Build.targets
+/.claude/skills
