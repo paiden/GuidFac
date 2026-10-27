@@ -1,86 +1,61 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
     <LangVersion>10.0</LangVersion>
-    <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <StartAction>Program</StartAction>
-    <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
-    <StartArguments>/rootsuffix Exp</StartArguments>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>12.0</OldToolsVersion>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F118390A-DF8A-4625-AE3D-D90ED83F7F1E}</ProjectGuid>
-    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <UseWPF>true</UseWPF>
     <RootNamespace>PrivateDeveloperInc.GuidFac</RootNamespace>
-    <AssemblyName>GuidFac</AssemblyName>
+    <!-- The output stays in bin\<Configuration>\, as before, and not in bin\<Configuration>\net472\ -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- The assembly attributes are in Properties\AssemblyInfo.cs -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- The strong name key is the file that the environment variable DEVSNK names; build with -p:SignAssembly=false when you do not have it -->
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>$(DEVSNK)</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <PropertyGroup Label="VSIX">
+    <!-- Sets the defaults of an SDK-style extension: the VSIX container, the Content items in it, F5 into the Experimental instance -->
+    <VSSDKBuildToolsAutoSetup>true</VSSDKBuildToolsAutoSetup>
+    <VsixDeployOnDebug>true</VsixDeployOnDebug>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <UseCodebase>true</UseCodebase>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="Microsoft.VisualStudio.Interop" Version="17.2.32505.113" />
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.2.32505.173" ExcludeAssets="runtime">
-      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="17.2.32505.113" />
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.2.2186">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <!-- Lets Visual Studio recognize the project as an extension before the first restore has imported the build tools -->
+    <ProjectCapability Include="CreateVsixContainer" />
+  </ItemGroup>
+
+  <!-- The files are included by the globs of the SDK; this adds the metadata that Visual Studio needs for the designers, the generators and the nesting -->
+  <ItemGroup>
+    <Compile Update="GuidFacWindow.xaml.cs" DependentUpon="GuidFacWindow.xaml" />
+    <Compile Update="Resources.Designer.cs" AutoGen="True" DesignTime="True" DependentUpon="Resources.resx" />
+    <EmbeddedResource Update="Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" SubType="Designer" />
+    <EmbeddedResource Update="VSPackage.resx" MergeWithCTO="true" ManifestResourceName="VSPackage" />
+    <None Update="source.extension.vsixmanifest" SubType="Designer" />
+    <Page Update="Resources\Styles.*.xaml" DependentUpon="Styles.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvailableItemName Include="VSCTCompile" />
+    <None Remove="GuidFac.vsct" />
+    <VSCTCompile Include="GuidFac.vsct" ResourceName="Menus.ctmenu" SubType="Designer" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Content goes into the VSIX: VSSDKBuildToolsAutoSetup sets IncludeInVSIX for it. Resources\Images.png and Resources\Package.ico stay None items: the command table and VSPackage.resx read them while they build -->
+    <Content Include="PreviewScreen.png" />
+    <Content Include="ReleaseNotes.txt" />
+    <Content Include="Resources\Icon_32x32.png" />
+    <None Remove="PreviewScreen.png" />
+    <None Remove="ReleaseNotes.txt" />
+    <None Remove="Resources\Icon_32x32.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Private assemblies of the Visual Studio that builds the extension: see "Private Visual Studio Assemblies" in the instructions. They must not be copied into the VSIX -->
     <Reference Include="Microsoft.VisualStudio.Diagnostics.Assert">
       <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.Diagnostics.Assert.dll</HintPath>
       <Private>False</Private>
@@ -93,20 +68,13 @@
       <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\Microsoft.VisualStudio.Shell.ViewManager.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
+    <!-- Framework assemblies that the SDK does not reference by default -->
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
+
   <ItemGroup>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
@@ -118,135 +86,12 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="RadioButtonSelector.cs" />
-    <Compile Include="GuidFacConfig.cs" />
-    <Compile Include="GuidFacWindow.xaml.cs">
-      <DependentUpon>GuidFacWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Guids.cs" />
-    <Compile Include="GuidSequncesGenerator.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GuidFacPackage.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PkgCmdID.cs" />
+    <PackageReference Include="Microsoft.VisualStudio.Interop" Version="17.2.32505.113" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.2.32505.173" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="17.2.32505.113" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="18.5.40034" PrivateAssets="all" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="source.extension.vsixmanifest">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <VSCTCompile Include="GuidFac.vsct">
-      <ResourceName>Menus.ctmenu</ResourceName>
-      <SubType>Designer</SubType>
-    </VSCTCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Images.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PreviewScreen.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="ReleaseNotes.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Icon_32x32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Package.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="GuidFacWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles.ContextMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.Expander.Collapsing.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.Expander.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.ImageButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.Label.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.LinkButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.ListboxItem.NoHover.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.ListBoxItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.ListViewItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Styles.xaml</DependentUpon>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <PropertyGroup>
-    <UseCodebase>true</UseCodebase>
-  </PropertyGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
